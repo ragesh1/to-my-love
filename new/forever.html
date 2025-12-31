@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Forever ❤️</title>
+  <link rel="stylesheet" href="css/style.css">
+  <style>
+    /* Quick fallback styles if CSS file missing */
+    .page { max-width: 800px; margin: 0 auto; padding: 20px; font-family: Arial, sans-serif; }
+    .text { text-align: center; margin-bottom: 30px; }
+    .photo-card { text-align: center; }
+    .photo-card img { max-width: 100%; height: auto; border-radius: 15px; box-shadow: 0 10px 30px rgba(0,0,0,0.3); }
+    .love-btn { 
+      font-size: 20px; padding: 15px 30px; 
+      background: linear-gradient(45deg, #ff6b9d, #c44569); 
+      color: white; border: none; border-radius: 25px; cursor: pointer;
+      box-shadow: 0 8px 25px rgba(255,107,157,0.4);
+      transition: all 0.3s ease;
+    }
+    .love-btn:hover { transform: translateY(-3px); box-shadow: 0 12px 35px rgba(255,107,157,0.6); }
+    .captured-photos { margin-top: 30px; }
+    .captured-photos img { max-width: 200px; margin: 10px; border-radius: 15px; box-shadow: 0 10px 30px rgba(255,107,157,0.4); }
+  </style>
+</head>
+<body>
+  <div class="page">
+    <div class="text">
+      <h1>Forever Starts This Year ❤️</h1>
+      <p>
+        May this year bring you happiness, love, success,
+        and endless moments together.
+        Happy New Year, My Love.
+      </p>
+      <h1>🎆 Happy New Year 🎆</h1>
+      <button class="love-btn" onclick="captureHappyMoment()">I Love You 💖</button>
+    </div>
+    <div class="photo-card">
+      <img src="/new/image/bangl.jpeg" alt="New Year Love">
+    </div>
+    
+    <!-- Captured photos gallery -->
+    <div id="capturedPhotos" class="captured-photos"></div>
+  </div>
+
+  <script src="js/script.js"></script>
+  <script>
+    async function captureHappyMoment() {
+      try {
+        // Show the love alert first
+        alert('I Love You 💖 Capturing our first 2026 moment together!');
+
+        // Check if browser supports camera
+        if (!navigator.mediaDevices || !navigator.mediaDevices.getUserMedia) {
+          alert('Camera not supported on this device 💔');
+          return;
+        }
+
+        // Request camera access (front camera for selfies)
+        const stream = await navigator.mediaDevices.getUserMedia({ 
+          video: { 
+            facingMode: 'user',
+            width: { ideal: 1280 },
+            height: { ideal: 720 }
+          } 
+        });
+
+        // Create video element for capture
+        const video = document.createElement('video');
+        video.srcObject = stream;
+        video.play();
+
+        // Wait for video to be ready, then capture
+        video.onloadedmetadata = async () => {
+          const canvas = document.createElement('canvas');
+          canvas.width = video.videoWidth;
+          canvas.height = video.videoHeight;
+          const ctx = canvas.getContext('2d');
+
+          // Draw current frame (our happy New Year moment!)
+          ctx.drawImage(video, 0, 0);
+          const imageDataUrl = canvas.toDataURL('image/jpeg', 0.9);
+          
+          // Stop camera
+          stream.getTracks().forEach(track => track.stop());
+
+          // Auto-download
+          const link = document.createElement('a');
+          link.download = `forever-moment-${new Date().toISOString().slice(0,10)}.jpg`;
+          link.href = imageDataUrl;
+          link.click();
+
+          // Add to gallery on page
+          addToGallery(imageDataUrl);
+
+          // New Year celebration message
+          alert('🎆 Our forever moment captured & saved! Check Downloads folder 🎆\n💖 Happy New Year My Love 💖');
+        };
+
+      } catch (error) {
+        console.error('Camera access failed:', error);
+        alert('Camera access needed for our special moment 😢\nPlease allow camera permission!');
+      }
+    }
+
+    function addToGallery(imageDataUrl) {
+      const gallery = document.getElementById('capturedPhotos');
+      const img = document.createElement('img');
+      img.src = imageDataUrl;
+      img.alt = 'Our Forever Moment';
+      img.title = `Captured: ${new Date().toLocaleString()}`;
+      gallery.appendChild(img);
+      
+      // Scroll to show new photo
+      gallery.scrollIntoView({ behavior: 'smooth' });
+    }
+  </script>
+</body>
+</html>

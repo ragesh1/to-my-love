@@ -1,0 +1,104 @@
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;700&family=Pacifico&display=swap');
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Playfair Display', serif;
+  background: linear-gradient(135deg, #fbe7e9, #efe7ff, #fff1dc);
+  min-height: 100vh;
+  color: #4a2c2a;
+  overflow-x: hidden;
+}
+
+.page {
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  padding: 60px 10%;
+  min-height: 100vh;
+  animation: fadeIn 1.5s ease;
+}
+
+.text {
+  max-width: 500px;
+}
+
+h1 {
+  font-family: 'Pacifico', cursive;
+  font-size: 3rem;
+  margin-bottom: 20px;
+  color: #c44569;
+  text-shadow: 0 0 12px rgba(255, 182, 193, 0.6);
+}
+
+p {
+  font-size: 1.2rem;
+  line-height: 1.7;
+  margin-bottom: 20px;
+}
+
+button {
+  background: linear-gradient(45deg, #ff9aa2, #ffb7b2);
+  border: none;
+  padding: 14px 28px;
+  font-size: 1rem;
+  border-radius: 30px;
+  cursor: pointer;
+  color: #fff;
+  box-shadow: 0 8px 20px rgba(255, 154, 162, 0.5);
+  transition: transform 0.3s ease;
+}
+
+button:hover {
+  transform: scale(1.05);
+}
+
+.photo-card {
+  width: 260px;
+  padding: 15px;
+  background: rgba(255, 255, 255, 0.6);
+  backdrop-filter: blur(10px);
+  border-radius: 20px;
+  box-shadow: 0 20px 40px rgba(0,0,0,0.15);
+  transform: rotate(-3deg);
+}
+
+.photo-card img {
+  width: 100%;
+  border-radius: 15px;
+}
+
+.right {
+  transform: rotate(3deg);
+}
+
+ul {
+  list-style: none;
+}
+
+ul li {
+  background: rgba(255,255,255,0.5);
+  padding: 12px;
+  margin-bottom: 10px;
+  border-radius: 12px;
+  box-shadow: 0 0 15px rgba(255, 182, 193, 0.4);
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@media (max-width: 768px) {
+  .page {
+    flex-direction: column;
+    text-align: center;
+  }
+  .photo-card {
+    margin-top: 30px;
+  }
+}
